@@ -6,8 +6,30 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  Users,
+  Items
 } from './definitions';
 import { formatCurrency } from './utils';
+import { error } from 'console';
+
+export async function fetchUsers() {
+  try{
+    const data = await sql<Users>`select * from users`
+    return data
+  }catch(e){
+    console.error('Database Error:', e)
+    throw new Error('Failed to fetch users data.');
+  }
+}
+export async function fetchItems() {
+    try{
+      const data = await sql<Items>`select * from items`
+      return data.rows
+    }catch(e){
+      console.error('Database Error:', e)
+      throw new Error('Failed to fetch items data.');
+    }
+}
 
 export async function fetchRevenue() {
   try {
